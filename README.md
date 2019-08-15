@@ -12,9 +12,9 @@
  
 ##TODO
 
--[ ] implement List
--[ ] 함수구현 
--[ ] 테스트코드
+- [ ] implement List
+- [ ] 함수구현 
+- [ ] 테스트코드
 
 ##TODO-REST-API 스펙
 
