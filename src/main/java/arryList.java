@@ -3,15 +3,23 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class arryList implements List<String> {
+public class arryList<String> implements List<String> {
+    private String[] array;
+    private int size=0;
+
+    public arryList(){
+        this.array = (String[])new Object[1];
+        this.size=0;
+    }
+
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size==0 ? true : false;
     }
 
     @Override
@@ -36,13 +44,30 @@ public class arryList implements List<String> {
 
     @Override
     public boolean add(String s) {
-        return false;
+        if(size >= array.length){
+            String[] bigger = (String[])new Object[array.length*2];
+            System.arraycopy(array,0,bigger,0,array.length);
+            array=bigger;
+        }
+        array[size]=s;
+        size++;
+        return true;
     }
 
     @Override
-    public boolean remove(Object o) {
-        return false;
+    public void add(int index, String element) {
+        if(index<0||index>size){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        add(element);
+
+        for(int i=size-1;i>index;i--){
+            array[i]=array[i-1];
+        }
+        array[index] = element;
     }
+
+
 
     @Override
     public boolean containsAll(Collection<?> c) {
@@ -51,12 +76,25 @@ public class arryList implements List<String> {
 
     @Override
     public boolean addAll(Collection<? extends String> c) {
-        return false;
+        boolean flag = true;
+        for(String s: c){
+            flag &= add(s);
+        }
+        return flag;
     }
+
 
     @Override
     public boolean addAll(int index, Collection<? extends String> c) {
-        return false;
+        int i=0;
+        if(index<0||index>size){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        for(String s: c){
+            add(index+i,s);
+            i++;
+        }
+        return true;
     }
 
     @Override
@@ -76,7 +114,10 @@ public class arryList implements List<String> {
 
     @Override
     public String get(int index) {
-        return null;
+        if(index<0||index>size){
+            throw new ArrayIndexOutOfBoundsException();
+        }
+        return array[index];
     }
 
     @Override
@@ -84,14 +125,16 @@ public class arryList implements List<String> {
         return null;
     }
 
-    @Override
-    public void add(int index, String element) {
 
-    }
 
     @Override
     public String remove(int index) {
         return null;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return false;
     }
 
     @Override
@@ -118,4 +161,6 @@ public class arryList implements List<String> {
     public List<String> subList(int fromIndex, int toIndex) {
         return null;
     }
+
+
 }
