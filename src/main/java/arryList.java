@@ -23,26 +23,6 @@ public class arryList<String> implements List<String> {
     }
 
     @Override
-    public boolean contains(Object o) {
-        return false;
-    }
-
-    @Override
-    public Iterator<String> iterator() {
-        return null;
-    }
-
-    @Override
-    public Object[] toArray() {
-        return new Object[0];
-    }
-
-    @Override
-    public <T> T[] toArray(T[] a) {
-        return null;
-    }
-
-    @Override
     public boolean add(String s) {
         if(size >= array.length){
             String[] bigger = (String[])new Object[array.length*2];
@@ -69,10 +49,6 @@ public class arryList<String> implements List<String> {
 
 
 
-    @Override
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
 
     @Override
     public boolean addAll(Collection<? extends String> c) {
@@ -97,19 +73,10 @@ public class arryList<String> implements List<String> {
         return true;
     }
 
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
 
     @Override
     public void clear() {
-
+        size=0;
     }
 
     @Override
@@ -122,7 +89,23 @@ public class arryList<String> implements List<String> {
 
     @Override
     public String set(int index, String element) {
-        return null;
+        add(index,element);
+        return (String) array.toString();
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        return indexOf(o) != -1;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        for(Object o : c){
+            if(!contains(o))
+                return false;
+        }
+
+        return true;
     }
 
 
@@ -138,17 +121,52 @@ public class arryList<String> implements List<String> {
     }
 
     @Override
+    public boolean removeAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+    @Override
     public int indexOf(Object o) {
-        return 0;
+        for(int i=0;i<size;i++){
+            if(equals(o,array[i])){
+                System.out.println(i);
+                return i;
+            }
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        if( equals(o,array[size-1]) ){
+            return size-1;
+        }
+        return -1;
+    }
+
+    @Override
+    public Iterator<String> iterator() {
+        return null;
     }
 
     @Override
     public ListIterator<String> listIterator() {
+        return null;
+    }
+
+
+    @Override
+    public Object[] toArray() {
+        return new Object[0];
+    }
+
+    @Override
+    public <T> T[] toArray(T[] a) {
         return null;
     }
 
@@ -160,6 +178,16 @@ public class arryList<String> implements List<String> {
     @Override
     public List<String> subList(int fromIndex, int toIndex) {
         return null;
+    }
+
+
+    private boolean equals(Object arg1,Object arg2){
+        if(arg1==null){
+            return arg2 == null;
+        }
+        else {
+            return arg1.equals(arg2);
+        }
     }
 
 
