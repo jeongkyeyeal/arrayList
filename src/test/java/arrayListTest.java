@@ -94,6 +94,45 @@ public class arrayListTest {
         assertEquals(myList1.containsAll(stringList),true);
     }
 
+    @Test
+    public void testArrayListRemoveIndex(){
+        arryList<String> myList1 = new arryList<>();
+        myList1.add("String1");
+        myList1.add("String2");
+        myList1.add("String3");
+
+        assertEquals(myList1.remove(1),"String2");
+        assertEquals(myList1.size(),2);
+    }
+
+    @Test
+    public void testArrayListRemoveObject(){
+        arryList<String> myList1 = new arryList<>();
+        myList1.add("String1");
+        myList1.add("String2");
+        myList1.add("String3");
+
+        assertEquals(myList1.remove("String3"),true);
+        assertEquals(myList1.lastIndexOf("String2"),1);
+        assertEquals(myList1.size(),2);
+    }
+
+    @Test
+    public void testArrayListRemoveAll(){
+        arryList<String> myList1 = new arryList<>();
+        myList1.add("String1");
+        myList1.add("String2");
+        myList1.add("String3");
+        assertEquals(myList1.size(),3);
+
+        List<String> stringList = new ArrayList<>();
+        stringList.add("String2");
+        stringList.add("String3");
+
+        assertEquals(myList1.removeAll(stringList),true);
+        assertEquals(myList1.indexOf("String1"),0);
+        assertEquals(myList1.size(),1);
+    }
 
 
 }

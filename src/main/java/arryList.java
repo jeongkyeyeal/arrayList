@@ -90,7 +90,7 @@ public class arryList<String> implements List<String> {
     @Override
     public String set(int index, String element) {
         add(index,element);
-        return (String) array.toString();
+        return array[index];
     }
 
     @Override
@@ -109,32 +109,10 @@ public class arryList<String> implements List<String> {
     }
 
 
-
-    @Override
-    public String remove(int index) {
-        return null;
-    }
-
-    @Override
-    public boolean remove(Object o) {
-        return false;
-    }
-
-    @Override
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-    @Override
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
     @Override
     public int indexOf(Object o) {
         for(int i=0;i<size;i++){
             if(equals(o,array[i])){
-                System.out.println(i);
                 return i;
             }
         }
@@ -181,6 +159,49 @@ public class arryList<String> implements List<String> {
     }
 
 
+    @Override
+    public String remove(int index) {
+        if(index<0||index>size){
+            throw new IndexOutOfBoundsException();
+        }
+        String s = array[index];
+        for(int i=index+1;i<size;i++){
+            array[i-1] = array[i];
+        }
+        size--;
+        array[size]=null;
+        return s;
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        for(int i=0;i<size;i++){
+            if(equals(o,array[i])){
+                remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        if(containsAll(c)){
+            for(Object s: c){
+                remove(s);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        return false;
+    }
+
+
     private boolean equals(Object arg1,Object arg2){
         if(arg1==null){
             return arg2 == null;
@@ -189,6 +210,7 @@ public class arryList<String> implements List<String> {
             return arg1.equals(arg2);
         }
     }
+
 
 
 }
